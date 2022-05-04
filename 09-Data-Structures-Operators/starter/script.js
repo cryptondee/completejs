@@ -124,21 +124,40 @@ const restaurant = {
     console.log(otherIngredients);
   },
 };
-if (restaurant.openingHours.mon) console.log(restaurant.openingHours.mon.open);
+// if (restaurant.openingHours.mon) console.log(restaurant.openingHours.mon.open);
 
-// with optional chaining
-console.log(restaurant.openingHours.mon?.open);
-console.log(restaurant.openingHours?.mon?.open);
+// // with optional chaining
+// console.log(restaurant.openingHours.mon?.open);
+// console.log(restaurant.openingHours?.mon?.open);
 
-for (const day of weekdays) {
-  const open = restaurant.openingHours[day]?.open ?? 'closed';
-  console.log(`On ${day}, we open at ${open}`);
+// for (const day of weekdays) {
+//   const open = restaurant.openingHours[day]?.open ?? 'closed';
+//   console.log(`On ${day}, we open at ${open}`);
+// }
+// // methods
+// console.log(restaurant.orderRisotto?.(0, 1) ?? 'Method does not exit');
+
+// const users = [{ name: 'Andy', email: 'hello@andy.com' }];
+// console.log(users[0]?.name ?? 'user array empty');
+
+const properties = Object.keys(openingHours);
+console.log(properties);
+let openStr = `We are open on ${properties.length} days: `;
+
+for (const day of Object.keys(openingHours)) {
+  openStr += `${day}, `;
 }
-// methods
-console.log(restaurant.orderRisotto?.(0, 1) ?? 'Method does not exit');
+console.log(openStr);
 
-const users = [{ name: 'Andy', email: 'hello@andy.com' }];
-console.log(users[0]?.name ?? 'user array empty');
+const values = Object.values(openingHours);
+console.log(values);
+
+const entries = Object.entries(openingHours);
+console.log(entries);
+
+for (const [day, { open, close }] of entries) {
+  console.log(`On ${day} we open at ${open} and close at ${close}`);
+}
 
 // console.log(restaurant);
 // const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
