@@ -33,11 +33,19 @@ const restaurant = {
     console.log(otherIngredients);
   },
 };
-console.log(0 || 'jonas');
-if (restaurant.orderPizza) {
-  restaurant.orderPizza('mush', 'spinahc');
-}
-restaurant.orderPizza && restaurant.orderPizza('mush', 'spinach');
+restaurant.numGuest = 0;
+const guests = restaurant.numGuest || 10;
+console.log(guests);
+
+//nullish: null and undefiend not 0 or '' ?? <- nullish operant
+const guestCorrect = restaurant.numGuest ?? 10;
+console.log(guestCorrect);
+
+// console.log(0 || 'jonas');
+// if (restaurant.orderPizza) {
+//   restaurant.orderPizza('mush', 'spinahc');
+// }
+// restaurant.orderPizza && restaurant.orderPizza('mush', 'spinach');
 
 // // 1) destructering
 // // spread because on right side of =
