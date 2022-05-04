@@ -33,13 +33,38 @@ const restaurant = {
     console.log(otherIngredients);
   },
 };
-restaurant.numGuest = 0;
-const guests = restaurant.numGuest || 10;
-console.log(guests);
 
-//nullish: null and undefiend not 0 or '' ?? <- nullish operant
-const guestCorrect = restaurant.numGuest ?? 10;
-console.log(guestCorrect);
+const rest1 = {
+  name: 'Capri',
+  numGuest: 20,
+};
+const rest2 = {
+  name: 'La Piazza',
+  owner: 'Giovanni Rossi',
+};
+// or assignment operator
+rest1.numGuests = rest1.numGuest || 10;
+rest2.numGuests = rest2.numGuest || 10;
+
+rest1.numGuest ||= 10;
+rest2.numGuest ||= 10;
+// nullish assignment will asign variable if the first is not null or undefined
+rest1.numGuest ??= 10;
+rest2.numGuest ??= 10;
+
+rest1.owner &&= 'Anon';
+rest2.owner &&= 'Anon';
+
+console.log(rest1);
+console.log(rest2);
+
+// restaurant.numGuest = 0;
+// const guests = restaurant.numGuest || 10;
+// console.log(guests);
+
+// //nullish: null and undefiend not 0 or '' ?? <- nullish operant
+// const guestCorrect = restaurant.numGuest ?? 10;
+// console.log(guestCorrect);
 
 // console.log(0 || 'jonas');
 // if (restaurant.orderPizza) {
