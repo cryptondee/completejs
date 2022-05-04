@@ -124,6 +124,8 @@ const restaurant = {
     console.log(otherIngredients);
   },
 };
+
+//test commit
 // if (restaurant.openingHours.mon) console.log(restaurant.openingHours.mon.open);
 
 // // with optional chaining
