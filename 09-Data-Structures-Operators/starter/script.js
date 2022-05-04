@@ -28,24 +28,62 @@ const restaurant = {
       `Here is your delicious pasta with ${ing1}, ${ing2}, and ${ing3}`
     );
   },
+  orderPizza: function (mainIngredient, ...otherIngredients) {
+    console.log(mainIngredient);
+    console.log(otherIngredients);
+  },
 };
-const arr = [7, 8, 9];
-const badNewArr = [1, 2, arr[0], arr[1], arr[2]];
-console.log(badNewArr);
-const newArr = [1, 2, ...arr];
-console.log(newArr);
-console.log(...newArr);
+// 1) destructering
+// spread because on right side of =
+const arr = [1, 2, ...[3, 4]];
+//rest because on left side of =
+const [a, b, ...others] = [1, 2, 3, 4, 5];
+console.log(a, b, others);
 
-const newMenu = [...restaurant.mainMenu, 'Gnocci'];
-console.log(newMenu);
-// copy array
-const mainMenuCopy = [...restaurant.mainMenu];
-const newMenu2 = [...restaurant.mainMenu, ...restaurant.starterMenu];
-console.log(newMenu2);
+const [pizza, , risotto, ...otherfoods] = [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+];
+console.log(pizza, risotto, otherfoods);
+// objects
 
-const str = 'andy';
-const letter = [...str, ' ', 's. '];
-console.log(letter);
+const { sat, ...weekdays } = restaurant.openingHours;
+console.log(weekdays);
+
+// 2) functions
+const add = function (...numbers) {
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    sum += numbers[i];
+  }
+  console.log(sum);
+};
+add(2, 3);
+add(5, 3, 7, 2);
+add(5, 3, 7, 2, 1, 2);
+const x = [23, 5, 7];
+add(...x);
+
+restaurant.orderPizza('mushroom', 'onion', 'olives', 'spinach');
+restaurant.orderPizza('mushroom');
+
+// const arr = [7, 8, 9];
+// const badNewArr = [1, 2, arr[0], arr[1], arr[2]];
+// console.log(badNewArr);
+// const newArr = [1, 2, ...arr];
+// console.log(newArr);
+// console.log(...newArr);
+
+// const newMenu = [...restaurant.mainMenu, 'Gnocci'];
+// console.log(newMenu);
+// // copy array
+// const mainMenuCopy = [...restaurant.mainMenu];
+// const newMenu2 = [...restaurant.mainMenu, ...restaurant.starterMenu];
+// console.log(newMenu2);
+
+// const str = 'andy';
+// const letter = [...str, ' ', 's. '];
+// console.log(letter);
 
 // const ingredients = [
 //   prompt(`let's make pasta! Ingredient 1?`),
@@ -56,9 +94,9 @@ console.log(letter);
 
 // const pasta = restaurant.orderPasta(...ingredients);
 
-const newRestaurant = { ...restaurant, founder: 'andy', foundedIn: 2000 };
-const restaurantCopy = { ...restaurant };
-restaurantCopy.name = 'roma';
+// const newRestaurant = { ...restaurant, founder: 'andy', foundedIn: 2000 };
+// const restaurantCopy = { ...restaurant };
+// restaurantCopy.name = 'roma';
 
 // const arr = [2, 3, 4];
 // const a = arr[0];
