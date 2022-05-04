@@ -124,16 +124,32 @@ const restaurant = {
     console.log(otherIngredients);
   },
 };
-console.log(restaurant);
-const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
-// for (const item of menu) console.log(item);
-// for (const item of menu.entries()) {
-//   console.log(`${item[0] + 1} : ${item[1]}`);
-// }
+if (restaurant.openingHours.mon) console.log(restaurant.openingHours.mon.open);
 
-for (const [i, el] of menu.entries()) {
-  console.log(`${i + 1} : ${el}`);
+// with optional chaining
+console.log(restaurant.openingHours.mon?.open);
+console.log(restaurant.openingHours?.mon?.open);
+
+for (const day of weekdays) {
+  const open = restaurant.openingHours[day]?.open ?? 'closed';
+  console.log(`On ${day}, we open at ${open}`);
 }
+// methods
+console.log(restaurant.orderRisotto?.(0, 1) ?? 'Method does not exit');
+
+const users = [{ name: 'Andy', email: 'hello@andy.com' }];
+console.log(users[0]?.name ?? 'user array empty');
+
+// console.log(restaurant);
+// const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+// // for (const item of menu) console.log(item);
+// // for (const item of menu.entries()) {
+// //   console.log(`${item[0] + 1} : ${item[1]}`);
+// // }
+
+// for (const [i, el] of menu.entries()) {
+//   console.log(`${i + 1} : ${el}`);
+// }
 
 // console.log(menu.entries());
 // console.log([...menu.entries()]);
