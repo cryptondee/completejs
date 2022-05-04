@@ -19,108 +19,119 @@ TEST DATA FOR 6: Use players 'Davies', 'Muller', 'Lewandowski' and 'Kimmich'. Th
 
 GOOD LUCK 😀
 */
-const game = {
-  team1: 'Bayern Munich',
-  team2: 'Borrussia Dortmund',
-  players: [
-    [
-      'Neuer',
-      'Pavard',
-      'Martinez',
-      'Alaba',
-      'Davies',
-      'Kimmich',
-      'Goretzka',
-      'Coman',
-      'Muller',
-      'Gnarby',
-      'Lewandowski',
-    ],
-    [
-      'Burki',
-      'Schulz',
-      'Hummels',
-      'Akanji',
-      'Hakimi',
-      'Weigl',
-      'Witsel',
-      'Hazard',
-      'Brandt',
-      'Sancho',
-      'Gotze',
-    ],
-  ],
-  score: '4:0',
-  scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
-  date: 'Nov 9th, 2037',
-  odds: {
-    team1: 1.33,
-    x: 3.25,
-    team2: 6.5,
-  },
-};
-
-const [players1, players2] = game.players;
-console.log(players1, players2);
-const allPlayers = [...players1, ...players2];
-const [gk, ...fieldplayers] = players1;
-console.log(gk);
-console.log(fieldplayers);
-console.log(allPlayers);
-const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic'];
-console.log(players1Final);
-
-const {
-  odds: { team1, x: draw, team2 },
-} = game;
-console.log(team1);
-console.log(draw);
-console.log(team2);
-
-const printGoals = function (...str) {
-  let totalGoals = 0;
-  for (let i = 0; i < str.length; i++) {
-    console.log(str[i]);
-    totalGoals++;
-  }
-  console.log(`total goals scored ${totalGoals}`);
-};
-
-printGoals(...game.scored);
-// const restaurant = {
-//   name: 'classico Italinao',
-//   location: 'G.molstraat 34, Zaandam',
-//   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
-//   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic', 'Bread', 'Caprese Salad'],
-//   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-//   openingHours: {
-//     thu: {
-//       open: 12,
-//       close: 22,
-//     },
-//     fri: {
-//       open: 11,
-//       close: 23,
-//     },
-//     sat: {
-//       open: 0,
-//       close: 24,
-//     },
-//   },
-//   order: function (starterIndex, mainIndex) {
-//     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
-//   },
-//   orderPasta: function (ing1, ing2, ing3) {
-//     console.log(
-//       `Here is your delicious pasta with ${ing1}, ${ing2}, and ${ing3}`
-//     );
-//   },
-//   orderPizza: function (mainIngredient, ...otherIngredients) {
-//     console.log(mainIngredient);
-//     console.log(otherIngredients);
+// const game = {
+//   team1: 'Bayern Munich',
+//   team2: 'Borrussia Dortmund',
+//   players: [
+//     [
+//       'Neuer',
+//       'Pavard',
+//       'Martinez',
+//       'Alaba',
+//       'Davies',
+//       'Kimmich',
+//       'Goretzka',
+//       'Coman',
+//       'Muller',
+//       'Gnarby',
+//       'Lewandowski',
+//     ],
+//     [
+//       'Burki',
+//       'Schulz',
+//       'Hummels',
+//       'Akanji',
+//       'Hakimi',
+//       'Weigl',
+//       'Witsel',
+//       'Hazard',
+//       'Brandt',
+//       'Sancho',
+//       'Gotze',
+//     ],
+//   ],
+//   score: '4:0',
+//   scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+//   date: 'Nov 9th, 2037',
+//   odds: {
+//     team1: 1.33,
+//     x: 3.25,
+//     team2: 6.5,
 //   },
 // };
 
+// const [players1, players2] = game.players;
+// console.log(players1, players2);
+// const allPlayers = [...players1, ...players2];
+// const [gk, ...fieldplayers] = players1;
+// console.log(gk);
+// console.log(fieldplayers);
+// console.log(allPlayers);
+// const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic'];
+// console.log(players1Final);
+
+// const {
+//   odds: { team1, x: draw, team2 },
+// } = game;
+// console.log(team1);
+// console.log(draw);
+// console.log(team2);
+
+// const printGoals = function (...str) {
+//   let totalGoals = 0;
+//   for (let i = 0; i < str.length; i++) {
+//     console.log(str[i]);
+//     totalGoals++;
+//   }
+//   console.log(`total goals scored ${totalGoals}`);
+// };
+
+// printGoals(...game.scored);
+const restaurant = {
+  name: 'classico Italinao',
+  location: 'G.molstraat 34, Zaandam',
+  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic', 'Bread', 'Caprese Salad'],
+  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+  openingHours: {
+    thu: {
+      open: 12,
+      close: 22,
+    },
+    fri: {
+      open: 11,
+      close: 23,
+    },
+    sat: {
+      open: 0,
+      close: 24,
+    },
+  },
+  order: function (starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(
+      `Here is your delicious pasta with ${ing1}, ${ing2}, and ${ing3}`
+    );
+  },
+  orderPizza: function (mainIngredient, ...otherIngredients) {
+    console.log(mainIngredient);
+    console.log(otherIngredients);
+  },
+};
+const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+// for (const item of menu) console.log(item);
+// for (const item of menu.entries()) {
+//   console.log(`${item[0] + 1} : ${item[1]}`);
+// }
+
+for (const [i, el] of menu.entries()) {
+  console.log(`${i + 1} : ${el}`);
+}
+
+// console.log(menu.entries());
+// console.log([...menu.entries()]);
 // const rest1 = {
 //   name: 'Capri',
 //   numGuest: 20,
