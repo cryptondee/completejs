@@ -23,7 +23,42 @@ const restaurant = {
   order: function (starterIndex, mainIndex) {
     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
   },
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(
+      `Here is your delicious pasta with ${ing1}, ${ing2}, and ${ing3}`
+    );
+  },
 };
+const arr = [7, 8, 9];
+const badNewArr = [1, 2, arr[0], arr[1], arr[2]];
+console.log(badNewArr);
+const newArr = [1, 2, ...arr];
+console.log(newArr);
+console.log(...newArr);
+
+const newMenu = [...restaurant.mainMenu, 'Gnocci'];
+console.log(newMenu);
+// copy array
+const mainMenuCopy = [...restaurant.mainMenu];
+const newMenu2 = [...restaurant.mainMenu, ...restaurant.starterMenu];
+console.log(newMenu2);
+
+const str = 'andy';
+const letter = [...str, ' ', 's. '];
+console.log(letter);
+
+// const ingredients = [
+//   prompt(`let's make pasta! Ingredient 1?`),
+//   prompt(`let's make pasta! Ingredient 2?`),
+//   prompt(`let's make pasta! Ingredient 3?`),
+// ];
+// console.log(ingredients);
+
+// const pasta = restaurant.orderPasta(...ingredients);
+
+const newRestaurant = { ...restaurant, founder: 'andy', foundedIn: 2000 };
+const restaurantCopy = { ...restaurant };
+restaurantCopy.name = 'roma';
 
 // const arr = [2, 3, 4];
 // const a = arr[0];
