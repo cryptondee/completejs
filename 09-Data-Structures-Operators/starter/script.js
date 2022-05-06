@@ -1,4 +1,4 @@
-// 'use strict';
+'use strict';
 // /////////////////////////////////////
 // Coding Challenge #2
 
@@ -215,30 +215,79 @@ const restaurant = {
     console.log(otherIngredients);
   },
 };
-
-const orderSet = new Set([
-  'pasta',
-  'pizza',
-  'pizza',
-  'risotto',
-  'pasta',
-  'pizza',
+// Maps iteration
+const question = new Map([
+  ['question', 'What is the best prog language'],
+  [1, 'c'],
+  [2, 'Java'],
+  [3, 'JS'],
+  ['Correct', 3],
+  [true, 'Correct'],
+  [false, ' Try aggain!'],
 ]);
 
-console.log(orderSet);
-console.log(new Set('Andy'));
-console.log(orderSet.size);
-console.log(orderSet.has('pizza'));
-console.log(orderSet.has('bread'));
-orderSet.add('Garlic Bread');
-console.log(orderSet);
-orderSet.delete('risotto');
-console.log(orderSet);
-for (const order of orderSet) console.log(order);
-// example; sets are good for removing duplicate values
-const staff = ['waiter', 'cheff', 'waiter', 'manager', 'cheff', 'waiter'];
-const uniqueStaff = [...new Set(staff)];
-console.log(uniqueStaff);
+console.log(question);
+// Convert object to maps
+const hoursMap = new Map(Object.entries(openingHours));
+console.log(hoursMap);
+
+for (const [key, value] of question) {
+  if (key === 'question') console.log(`${value}`);
+  if (typeof key === 'number') console.log(`${key} : ${value}`);
+}
+// convert map to array
+console.log(...question);
+
+// // Maps
+// const rest = new Map(); // Set method
+// rest.set('name', 'Classico Italiano');
+// rest.set(1, 'Italy');
+// rest.set(2, 'Lisbon');
+// console.log(rest);
+// rest
+//   .set('categories', ['Italian', 'Pizzaria', 'Vegetarian', 'Organic'])
+//   .set('open', 11)
+//   .set('closed', 23)
+//   .set(true, 'we are open')
+//   .set(false, 'we are closed');
+// console.log(`---`);
+// console.log(typeof rest);
+// const time = 8; // get method
+// console.log(rest.get(time > rest.get('open') && time < rest.get('closed')));
+
+// console.log(rest.has('open')); // has method to check if map has a key
+// console.log(rest.has('oo')); // returns boolean (false) if map doesn't have the key
+
+// rest.delete(2); // to delete key:value pairs from the map
+// console.log(rest);
+
+// console.log(rest.size); // similar to length
+// //rest.clear // clears out the map
+
+// const orderSet = new Set([
+//   'pasta',
+//   'pizza',
+//   'pizza',
+//   'risotto',
+//   'pasta',
+//   'pizza',
+// ]);
+
+// console.log(orderSet);
+// console.log(new Set('Andy'));
+// console.log(orderSet.size);
+// console.log(orderSet.has('pizza'));
+// console.log(orderSet.has('bread'));
+// orderSet.add('Garlic Bread');
+// console.log(orderSet);
+// orderSet.delete('risotto');
+// console.log(orderSet);
+// for (const order of orderSet) console.log(order);
+// // example; sets are good for removing duplicate values
+// const staff = ['waiter', 'cheff', 'waiter', 'manager', 'cheff', 'waiter'];
+// const uniqueStaff = [...new Set(staff)];
+// console.log(uniqueStaff);
+
 // if (restaurant.openingHours.mon) console.log(restaurant.openingHours.mon.open);
 
 // // with optional chaining
