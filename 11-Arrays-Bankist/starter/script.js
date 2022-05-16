@@ -242,29 +242,88 @@ GOOD LUCK 😀
 
 // checkDogs(dogsKate);
 
-// Chapter 149 Data transformations :map, filter, reduce
-/* this chapter introduces the map, filter, and reduce methods. 
-the map method accepts an array and creates a new array based on the function provided. 
-The filter method accepts and array and filters out the elements that don't adhere to the criteria and returns a new array
-The reduce method boils ('reduces') all array elements down to on single value (adding all elements together)
-*/
+// // Chapter 149 Data transformations :map, filter, reduce
+// /* this chapter introduces the map, filter, and reduce methods.
+// the map method accepts an array and creates a new array based on the function provided.
+// The filter method accepts and array and filters out the elements that don't adhere to the criteria and returns a new array
+// The reduce method boils ('reduces') all array elements down to on single value (adding all elements together)
+// */
 
-// Chapter 150
+// // Chapter 150
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// const eurToUsd = 1.1;
+// const movementsUsd = movements.map(mov => mov * eurToUsd);
+// console.log(movements); // not effected
+// console.log(movementsUsd); // new array with new elements
+// const movementsUsdFor = [];
+// for (const mov of movements) movementsUsdFor.push(mov * eurToUsd);
+// console.log(movementsUsdFor);
+
+// const movementDescription = movements.map(
+//   (mov, i) =>
+//     `Movement ${i + 1}: You've ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(
+//       mov
+//     )}`
+// );
+// console.log(movementDescription); // array with all the strings
+// // Chapter 151
+// const createUsername = function (accs) {
+//   accs.forEach(function (acc) {
+//     // side effects caused the creation of the username key without returning anything
+//     acc.username = acc.owner
+//       .toLowerCase()
+//       .split(' ')
+//       .map(name => name[0])
+//       .join('');
+//   });
+// };
+// const user = 'Steven Thomas Williams'; // username should be lowercase first letter of each name/word
+// createUsername(accounts);
+// console.log(accounts);
+
+// // Chapter 152 Filter method
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const deposits = movements.filter(function (mov) {
+//   return mov > 0;
+// });
+// console.log(deposits);
+// const depositFor = [];
+// for (const mov of movements) {
+//   if (mov > 0) depositFor.push(mov);
+// }
+// console.log(depositFor);
+// const withdrawals = movements.filter(mov => mov < 0);
+// console.log(withdrawals);
+
+// Chapter 153 Reduce method
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+console.log(movements);
+// acc -> accumulator, all the values gets added up to the acc variable
+// const balance = movements.reduce(function (acc, cur, i, arr) {
+//   console.log(`iteration ${i}: ${acc}`);
+//   return acc + cur;
+// }, 0); // the 0 is the starting point of accumulation
+const balance = movements.reduce((acc, curr) => (acc += curr), 0);
 
-const eurToUsd = 1.1;
-const movementsUsd = movements.map(mov => mov * eurToUsd);
-console.log(movements); // not effected
-console.log(movementsUsd); // new array with new elements
-const movementsUsdFor = [];
-for (const mov of movements) movementsUsdFor.push(mov * eurToUsd);
-console.log(movementsUsdFor);
+console.log(balance);
+let sum = 0;
+for (const mov of movements) {
+  // using for...of loops you will need an external variable (sum)
+  console.log(sum);
+  sum += mov;
+}
+console.log(sum);
 
-const movementDescription = movements.map(
-  (mov, i) =>
-    `Movement ${i + 1}: You've ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(
-      mov
-    )}`
-);
-console.log(movementDescription); // array with all the strings
-// Chapter 151
+const calcDisplaybalance = function (movs) {
+  const balance = movs.reduce((acc, cur) => (acc += cur), 0);
+  labelBalance.textContent = `${balance} EUR`;
+};
+calcDisplaybalance(account1.movements);
+
+// maximum value
+const max = movements.reduce((acc, mov) => {
+  if (acc > mov) return acc;
+  else return mov;
+}, movements[0]);
+console.log(max);
