@@ -201,7 +201,46 @@ const displayMovements = function (movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-displayMovements(account1.movements);
+
+const createUsername = function (accs) {
+  accs.forEach(function (acc) {
+    // side effects caused the creation of the username key without returning anything
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+};
+const user = 'Steven Thomas Williams'; // username should be lowercase first letter of each name/word
+createUsername(accounts);
+console.log(accounts);
+
+const calcDisplaybalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, cur) => (acc += cur), 0);
+  labelBalance.textContent = `${acc.balance} EUR`;
+};
+
+const calcDisplaySummary = function (acc) {
+  const incomes = acc.movements
+    .filter(mov => mov > 0)
+    .reduce((acc, curr) => (acc += curr));
+  labelSumIn.textContent = `${incomes} `;
+  const outflow = acc.movements
+    .filter(mov => mov < 0)
+    .reduce((acc, curr) => (acc += curr));
+  labelSumOut.textContent = `${Math.abs(outflow)}`;
+
+  const interest = acc.movements
+    .filter(mov => mov > 0)
+    .map(function (mov) {
+      return (mov * acc.interestRate) / 100;
+    })
+    .filter(mov => mov >= 1)
+    .reduce((acc, curr) => (acc += curr));
+  labelSumInterest.textContent = interest;
+};
+
 // Chapter 148 Coding Challenge #1
 /* 
 Julia and Kate are doing a study on dogs. So each of them asked 5 dog owners about their dog's age, and stored the data into an array (one array for each). For now, they are just interested in knowing whether a dog is an adult or a puppy. A dog is an adult if it is at least 3 years old, and it's a puppy if it's less than 3 years old.
@@ -268,19 +307,6 @@ GOOD LUCK 😀
 // );
 // console.log(movementDescription); // array with all the strings
 // // Chapter 151
-// const createUsername = function (accs) {
-//   accs.forEach(function (acc) {
-//     // side effects caused the creation of the username key without returning anything
-//     acc.username = acc.owner
-//       .toLowerCase()
-//       .split(' ')
-//       .map(name => name[0])
-//       .join('');
-//   });
-// };
-// const user = 'Steven Thomas Williams'; // username should be lowercase first letter of each name/word
-// createUsername(accounts);
-// console.log(accounts);
 
 // // Chapter 152 Filter method
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
@@ -296,34 +322,249 @@ GOOD LUCK 😀
 // const withdrawals = movements.filter(mov => mov < 0);
 // console.log(withdrawals);
 
-// Chapter 153 Reduce method
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-console.log(movements);
-// acc -> accumulator, all the values gets added up to the acc variable
-// const balance = movements.reduce(function (acc, cur, i, arr) {
-//   console.log(`iteration ${i}: ${acc}`);
-//   return acc + cur;
-// }, 0); // the 0 is the starting point of accumulation
-const balance = movements.reduce((acc, curr) => (acc += curr), 0);
+// // Chapter 153 Reduce method
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// console.log(movements);
+// // acc -> accumulator, all the values gets added up to the acc variable
+// // const balance = movements.reduce(function (acc, cur, i, arr) {
+// //   console.log(`iteration ${i}: ${acc}`);
+// //   return acc + cur;
+// // }, 0); // the 0 is the starting point of accumulation
+// const balance = movements.reduce((acc, curr) => (acc += curr), 0);
 
-console.log(balance);
-let sum = 0;
-for (const mov of movements) {
-  // using for...of loops you will need an external variable (sum)
-  console.log(sum);
-  sum += mov;
-}
-console.log(sum);
+// console.log(balance);
+// let sum = 0;
+// for (const mov of movements) {
+//   // using for...of loops you will need an external variable (sum)
+//   console.log(sum);
+//   sum += mov;
+// }
+// console.log(sum);
 
-const calcDisplaybalance = function (movs) {
-  const balance = movs.reduce((acc, cur) => (acc += cur), 0);
-  labelBalance.textContent = `${balance} EUR`;
+// // maximum value
+// const max = movements.reduce((acc, mov) => {
+//   if (acc > mov) return acc;
+//   else return mov;
+// }, movements[0]);
+// console.log(max);
+
+// Chapter 154 Coding Challenge #2
+/* 
+Let's go back to Julia and Kate's study about dogs. This time, they want to convert dog ages to human ages and calculate the average age of the dogs in their study.
+
+Create a function 'calcAverageHumanAge', which accepts an arrays of dog's ages ('ages'), and does the following things in order:
+
+1. Calculate the dog age in human years using the following formula: if the dog is <= 2 years old, humanAge = 2 * dogAge. If the dog is > 2 years old, humanAge = 16 + dogAge * 4.
+2. Exclude all dogs that are less than 18 human years old (which is the same as keeping dogs that are at least 18 years old)
+3. Calculate the average human age of all adult dogs (you should already know from other challenges how we calculate averages 😉)
+4. Run the function for both test datasets
+
+TEST DATA 1: [5, 2, 4, 1, 15, 8, 3]
+TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
+*/
+// const calcAverageHumanAge = function (ages) {
+//   ages.map(function (age) {
+//     if (age <= 2) {
+//       console.log(`${age} * 2 = ${age * 2}`);
+//       return age * 2;
+//     } else {
+//       console.log(`16 + ${age} + 4 = ${16 + age * 4}`);
+//       return 16 + age * 4;
+//     }
+//   });
+// };
+
+// const calcAverageHumanAge = function (ages) {
+//   const humanAge = ages.map(function (age) {
+//     if (age <= 2) {
+//       console.log(`${age} * 2 = ${age * 2}`);
+//       return age * 2;
+//     } else {
+//       console.log(`16 + ${age} + 4 = ${16 + age * 4}`);
+//       return 16 + age * 4;
+//     }
+//   });
+//   console.log(`Human age of the dogs are ${humanAge}`);
+//   console.log(`------`);
+//   const exludedDogs = humanAge.filter(function (age) {
+//     if (age > 18) return age;
+//   });
+//   console.log(`here are the excluded dogs`);
+//   console.log(exludedDogs);
+//   console.log(`-----`);
+//   const avgAge = exludedDogs.reduce((acc, curr) => (acc += curr));
+//   console.log(`the average of the dogs ${avgAge / exludedDogs.length}`);
+// };
+
+// const test = calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
+// console.log(test);
+
+// // Chapter 155 The magic of chaining methods
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const eurToUsd = 1.1;
+// // Pipeline
+// const totalDepositUsd = movements
+//   .filter(mov => mov > 0)
+//   // .map(mov => mov * eurToUsd)
+//   .map((mov, i, arr) => {
+//     return mov * eurToUsd;
+//   })
+//   .reduce((acc, mov) => (acc += mov));
+// console.log(totalDepositUsd);
+
+// Chapter 156 Coding challenge #3
+/* 
+Rewrite the 'calcAverageHumanAge' function from the previous challenge, but this time as an arrow function, and using chaining!
+
+TEST DATA 1: [5, 2, 4, 1, 15, 8, 3]
+TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
+
+GOOD LUCK 😀
+*/
+
+// const calcAverageHumanAge = function (ages) {
+//   const humanAge = ages.map(function (age) {
+//     if (age <= 2) {
+//       console.log(`${age} * 2 = ${age * 2}`);
+//       return age * 2;
+//     } else {
+//       console.log(`16 + ${age} + 4 = ${16 + age * 4}`);
+//       return 16 + age * 4;
+//     }
+//   });
+//   console.log(`Human age of the dogs are ${humanAge}`);
+//   console.log(`------`);
+//   const exludedDogs = humanAge.filter(function (age) {
+//     if (age > 18) return age;
+//   });
+//   console.log(`here are the excluded dogs`);
+//   console.log(exludedDogs);
+//   console.log(`-----`);
+//   const avgAge = exludedDogs.reduce((acc, curr) => (acc += curr));
+//   console.log(`the average of the dogs ${avgAge / exludedDogs.length}`);
+// };
+
+// const calcAverageHumanAge = function (ages) {
+//   const humanAge = ages
+//     .map(age => (age <= 2 ? age * 2 : 16 + age * 4))
+//     .filter(age => age > 18)
+//     .reduce((acc, curr, i, arr) => acc + curr / arr.length);
+//   return humanAge;
+// };
+
+// const test = calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
+// console.log(test);
+
+// // Chapter 157 the find method
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const firstWithdrawal = movements.find(mov => mov < 0); // The find method returns the first element that fits the criteria, different from the filter method that returns every element that fits the criteria + returns an array
+// console.log(firstWithdrawal);
+
+// console.log(accounts);
+// const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+// console.log(account);
+
+// Chapter 158 Implementing the login
+
+let currentAccount;
+
+const updateUi = function (acc) {
+  // Display movements
+  displayMovements(acc.movements);
+  // Display balance
+  calcDisplaybalance(acc);
+  // Display summary
+  calcDisplaySummary(acc);
 };
-calcDisplaybalance(account1.movements);
 
-// maximum value
-const max = movements.reduce((acc, mov) => {
-  if (acc > mov) return acc;
-  else return mov;
-}, movements[0]);
-console.log(max);
+btnLogin.addEventListener('click', function (e) {
+  e.preventDefault(); // Prevents form from submitting
+  currentAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+  console.log(currentAccount);
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // Clear input fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+    // display UI and message
+    labelWelcome.textContent = `Welcome back ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+    containerApp.style.opacity = 100;
+
+    updateUi(currentAccount);
+  }
+});
+
+// Chapter 159 Implementing transfer
+btnTransfer.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputTransferAmount.value);
+  const receiverAcc = accounts.find(
+    acc => acc.username === inputTransferTo.value
+  );
+  inputTransferTo.value = inputTransferAmount = '';
+  if (
+    amount > 0 &&
+    receiverAcc &&
+    currentAccount.balance >= amount &&
+    receiverAcc?.username !== currentAccount.username
+  ) {
+    currentAccount.movements.push(-amount);
+    receiverAcc.movements.push(amount);
+    updateUi(currentAccount);
+  } else {
+  }
+});
+
+// Chapter 160 the findIndex method
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+  if (
+    currentAccount.username === inputCloseUsername.value &&
+    currentAccount.pin === Number(inputClosePin.value)
+  ) {
+    const index = accounts.findIndex(
+      // will return the first index number that matches the criteria
+      acc => acc.username === currentAccount.username
+    );
+    // delete accoutn
+    accounts.splice(index, 1);
+
+    // Hide UI
+    containerApp.style.opacity = 0;
+  } else {
+    console.log('wrong pin or username');
+  }
+});
+
+// Chapter 161 Some and Every
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// SOME method
+console.log(movements);
+console.log(movements.includes(-130)); // check for equality, finds if there is an element in the array from the param
+
+const anyDeposits = movements.some(mov => mov > 5000); // check for condition, is there an element that fits the arrays condition
+console.log(anyDeposits);
+
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  const amount = Number(inputLoanAmount.value);
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    // add movmenet
+    currentAccount.movements.push(amount);
+    // update ui
+    updateUi(currentAccount);
+    //
+    inputLoanAmount.value = '';
+  }
+});
+// EVERY method
+console.log(account4.movements.every(mov => mov > 0)); // Every method returns true when all the elements adhere to the criteria
+
+// Seperate callback
+const deposit = mov => mov > 0;
+console.log(movements.some(deposit));
