@@ -184,10 +184,13 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-// Chapter 147 Creating DOM elements
-const displayMovements = function (movements) {
+// Chapter 147 Creating DOM elements + chapter 163 SORT functionality
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
-  movements.forEach(function (mov, i) {
+
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
@@ -464,107 +467,422 @@ GOOD LUCK 😀
 // const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 // console.log(account);
 
-// Chapter 158 Implementing the login
+// // Chapter 158 Implementing the login
 
-let currentAccount;
+// let currentAccount;
 
-const updateUi = function (acc) {
-  // Display movements
-  displayMovements(acc.movements);
-  // Display balance
-  calcDisplaybalance(acc);
-  // Display summary
-  calcDisplaySummary(acc);
-};
+// const updateUi = function (acc) {
+//   // Display movements
+//   displayMovements(acc.movements);
+//   // Display balance
+//   calcDisplaybalance(acc);
+//   // Display summary
+//   calcDisplaySummary(acc);
+// };
 
-btnLogin.addEventListener('click', function (e) {
-  e.preventDefault(); // Prevents form from submitting
-  currentAccount = accounts.find(
-    acc => acc.username === inputLoginUsername.value
-  );
-  console.log(currentAccount);
-  if (currentAccount?.pin === Number(inputLoginPin.value)) {
-    // Clear input fields
-    inputLoginUsername.value = inputLoginPin.value = '';
-    inputLoginPin.blur();
-    // display UI and message
-    labelWelcome.textContent = `Welcome back ${
-      currentAccount.owner.split(' ')[0]
-    }`;
-    containerApp.style.opacity = 100;
+// btnLogin.addEventListener('click', function (e) {
+//   e.preventDefault(); // Prevents form from submitting
+//   currentAccount = accounts.find(
+//     acc => acc.username === inputLoginUsername.value
+//   );
+//   console.log(currentAccount);
+//   if (currentAccount?.pin === Number(inputLoginPin.value)) {
+//     // Clear input fields
+//     inputLoginUsername.value = inputLoginPin.value = '';
+//     inputLoginPin.blur();
+//     // display UI and message
+//     labelWelcome.textContent = `Welcome back ${
+//       currentAccount.owner.split(' ')[0]
+//     }`;
+//     containerApp.style.opacity = 100;
 
-    updateUi(currentAccount);
-  }
-});
+//     updateUi(currentAccount);
+//   }
+// });
 
-// Chapter 159 Implementing transfer
-btnTransfer.addEventListener('click', function (e) {
-  e.preventDefault();
+// // Chapter 159 Implementing transfer
+// btnTransfer.addEventListener('click', function (e) {
+//   e.preventDefault();
 
-  const amount = Number(inputTransferAmount.value);
-  const receiverAcc = accounts.find(
-    acc => acc.username === inputTransferTo.value
-  );
-  inputTransferTo.value = inputTransferAmount = '';
-  if (
-    amount > 0 &&
-    receiverAcc &&
-    currentAccount.balance >= amount &&
-    receiverAcc?.username !== currentAccount.username
-  ) {
-    currentAccount.movements.push(-amount);
-    receiverAcc.movements.push(amount);
-    updateUi(currentAccount);
-  } else {
-  }
-});
+//   const amount = Number(inputTransferAmount.value);
+//   const receiverAcc = accounts.find(
+//     acc => acc.username === inputTransferTo.value
+//   );
+//   inputTransferTo.value = inputTransferAmount = '';
+//   if (
+//     amount > 0 &&
+//     receiverAcc &&
+//     currentAccount.balance >= amount &&
+//     receiverAcc?.username !== currentAccount.username
+//   ) {
+//     currentAccount.movements.push(-amount);
+//     receiverAcc.movements.push(amount);
+//     updateUi(currentAccount);
+//   } else {
+//   }
+// });
 
-// Chapter 160 the findIndex method
-btnClose.addEventListener('click', function (e) {
-  e.preventDefault();
-  if (
-    currentAccount.username === inputCloseUsername.value &&
-    currentAccount.pin === Number(inputClosePin.value)
-  ) {
-    const index = accounts.findIndex(
-      // will return the first index number that matches the criteria
-      acc => acc.username === currentAccount.username
-    );
-    // delete accoutn
-    accounts.splice(index, 1);
+// // Chapter 160 the findIndex method
+// btnClose.addEventListener('click', function (e) {
+//   e.preventDefault();
+//   if (
+//     currentAccount.username === inputCloseUsername.value &&
+//     currentAccount.pin === Number(inputClosePin.value)
+//   ) {
+//     const index = accounts.findIndex(
+//       // will return the first index number that matches the criteria
+//       acc => acc.username === currentAccount.username
+//     );
+//     // delete accoutn
+//     accounts.splice(index, 1);
 
-    // Hide UI
-    containerApp.style.opacity = 0;
-  } else {
-    console.log('wrong pin or username');
-  }
-});
+//     // Hide UI
+//     containerApp.style.opacity = 0;
+//   } else {
+//     console.log('wrong pin or username');
+//   }
+// });
 
-// Chapter 161 Some and Every
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// // Chapter 161 Some and Every
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-// SOME method
-console.log(movements);
-console.log(movements.includes(-130)); // check for equality, finds if there is an element in the array from the param
+// // SOME method
+// console.log(movements);
+// console.log(movements.includes(-130)); // check for equality, finds if there is an element in the array from the param
 
-const anyDeposits = movements.some(mov => mov > 5000); // check for condition, is there an element that fits the arrays condition
-console.log(anyDeposits);
+// const anyDeposits = movements.some(mov => mov > 5000); // check for condition, is there an element that fits the arrays condition
+// console.log(anyDeposits);
 
-btnLoan.addEventListener('click', function (e) {
-  e.preventDefault();
-  const amount = Number(inputLoanAmount.value);
-  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-    // add movmenet
-    currentAccount.movements.push(amount);
-    // update ui
-    updateUi(currentAccount);
-    //
-    inputLoanAmount.value = '';
-  }
-});
-// EVERY method
-console.log(account4.movements.every(mov => mov > 0)); // Every method returns true when all the elements adhere to the criteria
+// btnLoan.addEventListener('click', function (e) {
+//   e.preventDefault();
+//   const amount = Number(inputLoanAmount.value);
+//   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+//     // add movmenet
+//     currentAccount.movements.push(amount);
+//     // update ui
+//     updateUi(currentAccount);
+//     //
+//     inputLoanAmount.value = '';
+//   }
+// });
+// // EVERY method
+// console.log(account4.movements.every(mov => mov > 0)); // Every method returns true when all the elements adhere to the criteria
 
-// Seperate callback
-const deposit = mov => mov > 0;
-console.log(movements.some(deposit));
+// // Seperate callback
+// const deposit = mov => mov > 0;
+// console.log(movements.some(deposit));
+
+// // Chapter 162 Flat and flatMap
+
+// const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+// console.log(arr.flat()); // The flat method (only works on new browsers), can unnest a nested array and fill it into a single array. Its similar to using spread, however this is even easier.
+// const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+// console.log(arrDeep.flat(1)); // If you have deeper nested arrays you can use the param to decide how deep to go into the array // will have same result as flat()
+// console.log(arrDeep.flat(2)); // Will unnest all the nested arrays and bring it back
+
+// // Separate lines
+// // const accountMovements = accounts.map(acc => acc.movements);
+// // console.log(accountMovements);
+// // const allMovements = accountMovements.flat();
+// // console.log(allMovements);
+// // const sumMovements = allMovements.reduce((acc, curr) => (acc += curr));
+// // console.log(sumMovements);
+
+// // Flat
+// const overalBalance = accounts
+//   .map(acc => acc.movements)
+//   .flat()
+//   .reduce((acc, curr) => (acc += curr));
+// console.log(`overal balance ${overalBalance}`);
+
+// // Flat map
+// const overalBalance2 = accounts
+//   .flatMap(acc => acc.movements) // is the combination of flat and map, however, it can only go one level deep
+//   .reduce((acc, curr) => (acc += curr));
+// console.log(overalBalance2);
+
+// // Chapter 163 Sorting arrays
+// // Strings
+// const owners = ['jonas', 'zach', 'adam', 'marhta'];
+// console.log(owners.sort());
+// // ['adam', 'jonas', 'marhta', 'zach']
+// console.log(owners); // Sort mutates the original array
+// // ['adam', 'jonas', 'marhta', 'zach']
+
+// //Numbers
+// console.log(movements);
+// console.log(movements.sort());
+// // [-130, -400, -650, 1300, 200, 3000, 450, 70], this  doesn't work because the sort converts everything to a string and than sorts them.
+// // To fix this you can use a callback function with sort.
+// // return < 0   A,B (keep order)
+// // return > 0   B,A (switch order)
+// movements.sort((a, b) => {
+//   // This sorts in ascending order
+//   if (a > b) return 1;
+//   if (b > a) return -1;
+//   console.log(a, b);
+// });
+// // Simplified
+// movements.sort((a, b) => a - b);
+// console.log(`---`);
+// console.log(movements.sort((a, b) => a - b));
+
+// console.log(movements);
+// movements.sort((a, b) => {
+//   // This sorts in descending order
+//   if (a > b) return -1;
+//   if (b > a) return 1;
+//   console.log(a, b);
+// });
+// console.log(movements);
+
+// // Simplified
+// console.log(`---`);
+// console.log(movements.sort((a, b) => b - a));
+// let sorted = false;
+// btnSort.addEventListener('click', function (e) {
+//   e.preventDefault();
+//   displayMovements(currentAccount.movements, !sorted);
+//   sorted = !sorted;
+// });
+
+// // Chapter 164 more ways of creating and filling arrays
+// // ways to create an array
+// const arr2 = [1, 2, 3, 4, 5];
+// console.log(new Array(1, 2, 3, 4, 5));
+
+// const x = new Array(7); // if you pass in 1 element, the new Array function will create empty array with the number passed, in as empty elements, in this case it will create an array with 7 empty elements
+// console.log(x);
+// //x.fill(1); // will fill the entire array with the value passed and it will mutate the underlying array
+// x.fill(1, 3, 5); // first param is what you want to fill, second param is where you want to start, third param is where to stop
+// console.log(x);
+// arr2.fill(23, 2, 6);
+// console.log(arr2);
+
+// /// Array.from
+// const y = Array.from({ length: 7 }, () => 1);
+// console.log(y);
+
+// const z = Array.from({ length: 7 }, (_, i) => i + 1);
+// console.log(z);
+
+// const randomDice = Array.from({ length: 100 }, () =>
+//   Math.trunc(Math.random() * 6 + 1)
+// );
+// console.log(randomDice);
+
+// const movementsUI = Array.from(document.querySelectorAll('.movements__value'));
+// console.log(movementsUI);
+
+// labelBalance.addEventListener('click', function () {
+//   const movementsUI = Array.from(
+//     document.querySelectorAll('.movements__value'),
+//     el => Number(el.textContent.replace('', ''))
+//   );
+//   console.log(movementsUI);
+// });
+
+// //  Chapter 165 Which Array method to use?
+// /*
+// Start with what do you I want to do with this array?
+// - To mutate original array
+//   --- Add to original array ---
+//   .push (end)
+//   .unshift (start)
+//   --- Remove from original ---
+//   .pop (end)
+//   .shift (start)
+//   .splice ( any)
+//   --- Other methods ---
+//   .reverse (reverses the order)
+//   .sort (sorts based on string)
+//   .fill (adds elements to an array)
+
+// - a new array
+//   --- computed from original ---
+//   .map (loops over all the elements and does something to it)
+//   --- filter using condition ---
+//   .filter
+//   --- portion of the original array ---
+//   .slice
+//   --- adding original to a different array ---
+//   .concat
+//   --- flattening or unnesting arrays ---
+//   .flat
+//   .flatmap
+
+// - an array index
+//   --- based on Value  ---
+//   .indexOf
+//   --- based on condition ---
+//   .findIndex
+
+// - or retrieve an array element
+//   --- based on condition ---
+//   .find
+
+// - know if an element is included in an array
+//   --- based on value ---
+//   .includes
+//   --- based on condition ---
+//   .some
+//   .every
+
+// - get a new string
+//   --- basd on separator string ---
+//   .join
+
+// - to transform to value
+//   --- based on accumulator ---
+//   .reduce
+
+// - or loop over an array
+//   --- basd on callback ---
+//   .forEach
+//   does not create a new array
+// */
+
+// // Chapter 166 array methods practice
+
+// const bankDepositSum = accounts
+//   .map(acc => acc.movements)
+//   .flat()
+//   .filter(mov => mov > 0)
+//   .reduce((acc, curr) => (acc += curr));
+
+// console.log(bankDepositSum);
+
+// const bankWithdrawalSum = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov < 0)
+//   .reduce((acc, curr) => (acc += curr));
+// console.log(bankWithdrawalSum);
+
+// const numDeposist1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce((acc, curr) => (curr >= 1000 ? acc + 1 : acc), 0);
+// console.log(numDeposist1000);
+
+// const { deposits, withdrawals } = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce(
+//     (sums, cur) => {
+//       // cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
+//       sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur;
+//       return sums;
+//     },
+//     { deposits: 0, withdrawals: 0 }
+//   );
+
+// console.log(deposits);
+// console.log(withdrawals);
+
+// const convertTitleCase = function (title) {
+//   const capitlize = str => str[0].toUpperCase() + str.slice(1);
+
+//   const exceptions = ['a', 'an', 'the', 'but', 'and', 'or', 'in', 'with'];
+
+//   const titleCase = title
+//     .toLowerCase()
+//     .split(' ')
+//     .map(word =>
+//       exceptions.includes(word) ? word : word[0].toUpperCase() + word.slice(1)
+//     )
+//     .join(' ');
+//   return capitlize(titleCase);
+// };
+// console.log(convertTitleCase('this is a logn title'));
+// console.log(convertTitleCase('this is a LONG title but not too long'));
+// console.log(convertTitleCase('and here is another title with an EXAMPLE'));
+
+// // Chapter 167 Coding challenge #4
+// /*
+// Julia and Kate are still studying dogs, and this time they are studying if dogs are eating too much or too little.
+// Eating too much means the dog's current food portion is larger than the recommended portion, and eating too little is the opposite.
+// Eating an okay amount means the dog's current food portion is within a range 10% above and 10% below the recommended portion (see hint).
+
+// 1. Loop over the array containing dog objects, and for each dog, calculate the recommended food portion and add it to the object as a new property. Do NOT create a new array, simply loop over the array. Forumla: recommendedFood = weight ** 0.75 * 28. (The result is in grams of food, and the weight needs to be in kg)
+// 2. Find Sarah's dog and log to the console whether it's eating too much or too little. HINT: Some dogs have multiple owners, so you first need to find Sarah in the owners array, and so this one is a bit tricky (on purpose) 🤓
+// 3. Create an array containing all owners of dogs who eat too much ('ownersEatTooMuch') and an array with all owners of dogs who eat too little ('ownersEatTooLittle').
+// 4. Log a string to the console for each array created in 3., like this: "Matilda and Alice and Bob's dogs eat too much!" and "Sarah and John and Michael's dogs eat too little!"
+// 5. Log to the console whether there is any dog eating EXACTLY the amount of food that is recommended (just true or false)
+// 6. Log to the console whether there is any dog eating an OKAY amount of food (just true or false)
+// 7. Create an array containing the dogs that are eating an OKAY amount of food (try to reuse the condition used in 6.)
+// 8. Create a shallow copy of the dogs array and sort it by recommended food portion in an ascending order (keep in mind that the portions are inside the array's objects)
+
+// HINT 1: Use many different tools to solve these challenges, you can use the summary lecture to choose between them 😉
+// HINT 2: Being within a range 10% above and below the recommended portion means: current > (recommended * 0.90) && current < (recommended * 1.10). Basically, the current portion should be between 90% and 110% of the recommended portion.
+
+// TEST DATA:
+// const dogs = [
+//   { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+//   { weight: 8, curFood: 200, owners: ['Matilda'] },
+//   { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+//   { weight: 32, curFood: 340, owners: ['Michael'] }
+// ];
+
+// GOOD LUCK 😀
+// */
+// const dogs = [
+//   { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+//   { weight: 8, curFood: 200, owners: ['Matilda'] },
+//   { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+//   { weight: 32, curFood: 340, owners: ['Michael'] },
+// ];
+// // challenge 1
+// dogs.forEach(function (value, index, arr) {
+//   value.recommendedFood = Math.trunc(value.weight ** 0.75 * 28) / 1000;
+//   value.curFood = value.curFood / 1000;
+// });
+// console.log(dogs);
+// // challenge 2
+
+// const sarahDog = 'Sarah';
+
+// dogs.forEach(function (value) {
+//   if (
+//     value.owners.includes('Sarah') &&
+//     value.curFood / 1000 > value.recommendedFood * 0.9 &&
+//     value.curFood / 1000 < value.recommendedFood * 1.1
+//   ) {
+//     console.log(`dog isn't eating to much : ${value.owners}`);
+//   } else {
+//     console.log(`dog is eating to much : ${value.owners}`);
+//   }
+// });
+// // Challenge 3
+// const ownersEatTooMuch = dogs.map(function (dog) {
+//   if (dog.curFood > dog.recommendedFood * 1.1) {
+//     return dog.owners;
+//   }
+// });
+// const ownersEatTooLittle = dogs
+//   .map(function (dog) {
+//     console.log(dog.curFood);
+//     console.log(dog.recommendedFood);
+//     if (dog.curFood < dog.recommendedFood) {
+//       return dog.owners;
+//     }
+//   })
+//   .filter(value => value !== undefined);
+
+// // console.log(ownersEatTooMuch.filter(value => value !== undefined).flat());
+// console.log(ownersEatTooLittle.filter(value => value !== undefined).flat());
+// // Challenge 4
+// ownersEatTooLittle.forEach(function (value) {
+//   console.log(`${value} dogs eat to little`);
+// });
+
+// // challenge 5
+// const eatEnough = dogs.map(dog =>
+//   dog.curFood === dog.recommendedFood ? console.log(true) : console.log(false)
+// );
+// // Challenge 6
+// const eatOkay = dogs.map(dog =>
+//   dog.curFood > dog.recommendedFood * 0.9 &&
+//   dog.curFood < dog.recommendedFood * 1.1
+//     ? dog
+//     : ''
+// );
+// // Challenge 7
+// // challenge 8
