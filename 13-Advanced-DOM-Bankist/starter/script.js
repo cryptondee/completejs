@@ -120,3 +120,42 @@ logo.classList.toggle('c');
 logo.classList.contains('c'); // similar to includes
 //don't use, will overwrite all the classes + only add one element
 logo.className = 'jonas';
+
+// Chapter 188 implement smooth scrolling
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+  const s1cords = section1.getBoundingClientRect();
+  console.log(s1cords);
+  console.log(e.target.getBoundingClientRect());
+  console.log(
+    'current scroll position (x/y)',
+    window.pageXOffset,
+    window.pageYOffset
+  );
+
+  console.log(
+    'height/width viewport',
+    document.documentElement.clientHeight,
+    document.documentElement.clientWidth
+  );
+
+  // // scrolling
+  // window.scrollTo(
+  //   s1cords.left + window.pageXOffset,
+  //   s1cords.top + window.pageYOffset // current position + current scroll will get you to the place you wnat to be
+  // );
+
+  // window.scrollTo({
+  //   // old skool way
+  //   left: s1cords.left + window.pageXOffset,
+  //   top: s1cords.top + window.pageYOffset,
+  //   behavior: 'smooth',
+  // });
+
+  section1.scrollIntoView({ behavior: 'smooth' }); // Only works in modern browers.
+});
+
+// chapter 189 types of events and event handlers
