@@ -1,4 +1,60 @@
 'use strict';
+///////////////////////////////////////
+// Coding Challenge #3
+
+/* 
+Let's continue with our football betting app! This time, we have a map with a log of the events that happened during the game. The values are the events themselves, and the keys are the minutes in which each event happened (a football game has 90 minutes plus some extra time).
+
+1. Create an array 'events' of the different game events that happened (no duplicates)
+2. After the game has finished, is was found that the yellow card from minute 64 was unfair. So remove this event from the game events log.
+3. Print the following string to the console: "An event happened, on average, every 9 minutes" (keep in mind that a game has 90 minutes)
+4. Loop over the events and log them to the console, marking whether it's in the first half or second half (after 45 min) of the game, like this:
+      [FIRST HALF] 17: ⚽️ GOAL
+
+GOOD LUCK 😀
+*/
+
+// const gameEvents = new Map([
+//   [17, '⚽️ GOAL'],
+//   [36, '🔁 Substitution'],
+//   [47, '⚽️ GOAL'],
+//   [61, '🔁 Substitution'],
+//   [64, '🔶 Yellow card'],
+//   [69, '🔴 Red card'],
+//   [70, '🔁 Substitution'],
+//   [72, '🔁 Substitution'],
+//   [76, '⚽️ GOAL'],
+//   [80, '⚽️ GOAL'],
+//   [92, '🔶 Yellow card'],
+// ]);
+
+// // Challenge 1
+// let events = [];
+// for (const [time, event] of gameEvents) events.push(event);
+// const newEvents = new Set(events);
+// console.log(newEvents);
+
+// // second solution
+// const events2 = [...new Set(gameEvents.values())];
+// console.log(events2);
+
+// // Challenge 2
+// gameEvents.delete(64);
+// console.log(gameEvents);
+// // Challenge 3
+
+// console.log(`an event happend every ${90 / gameEvents.size} minutes`);
+// // challenge 4
+// for (const [time, event] of gameEvents) {
+//   time < 45
+//     ? console.log(`[First Half] ${time}:  ${event}`)
+//     : console.log(`[Second half]${time}: ${event}`);
+// }
+// //Bonus
+// const time = [...gameEvents.keys()];
+// const final = time[time.length - 1];
+// console.log(final);
+
 // /////////////////////////////////////
 // Coding Challenge #2
 
@@ -179,65 +235,66 @@
 
 // printGoals(...game.scored);
 
-const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
-const openingHours = {
-  [weekdays[3]]: {
-    open: 12,
-    close: 22,
-  },
-  [weekdays[4]]: {
-    open: 11,
-    close: 23,
-  },
-  [weekdays[5]]: {
-    open: 0,
-    close: 24,
-  },
-};
+// const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+// const openingHours = {
+//   [weekdays[3]]: {
+//     open: 12,
+//     close: 22,
+//   },
+//   [weekdays[4]]: {
+//     open: 11,
+//     close: 23,
+//   },
+//   [weekdays[5]]: {
+//     open: 0,
+//     close: 24,
+//   },
+// };
 
-const restaurant = {
-  name: 'classico Italinao',
-  location: 'G.molstraat 34, Zaandam',
-  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
-  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic', 'Bread', 'Caprese Salad'],
-  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-  openingHours,
-  order(starterIndex, mainIndex) {
-    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
-  },
-  orderPasta(ing1, ing2, ing3) {
-    console.log(
-      `Here is your delicious pasta with ${ing1}, ${ing2}, and ${ing3}`
-    );
-  },
-  orderPizza(mainIngredient, ...otherIngredients) {
-    console.log(mainIngredient);
-    console.log(otherIngredients);
-  },
-};
-// Maps iteration
-const question = new Map([
-  ['question', 'What is the best prog language'],
-  [1, 'c'],
-  [2, 'Java'],
-  [3, 'JS'],
-  ['Correct', 3],
-  [true, 'Correct'],
-  [false, ' Try aggain!'],
-]);
+// const restaurant = {
+//   name: 'classico Italinao',
+//   location: 'G.molstraat 34, Zaandam',
+//   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+//   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic', 'Bread', 'Caprese Salad'],
+//   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+//   openingHours,
+//   order(starterIndex, mainIndex) {
+//     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+//   },
+//   orderPasta(ing1, ing2, ing3) {
+//     console.log(
+//       `Here is your delicious pasta with ${ing1}, ${ing2}, and ${ing3}`
+//     );
+//   },
+//   orderPizza(mainIngredient, ...otherIngredients) {
+//     console.log(mainIngredient);
+//     console.log(otherIngredients);
+//   },
+// };
 
-console.log(question);
-// Convert object to maps
-const hoursMap = new Map(Object.entries(openingHours));
-console.log(hoursMap);
+// // Maps iteration
+// const question = new Map([
+//   ['question', 'What is the best prog language'],
+//   [1, 'c'],
+//   [2, 'Java'],
+//   [3, 'JS'],
+//   ['Correct', 3],
+//   [true, 'Correct'],
+//   [false, ' Try aggain!'],
+// ]);
 
-for (const [key, value] of question) {
-  if (key === 'question') console.log(`${value}`);
-  if (typeof key === 'number') console.log(`${key} : ${value}`);
-}
-// convert map to array
-console.log(...question);
+// console.log(question);
+// // Convert object to maps
+// const hoursMap = new Map(Object.entries(openingHours));
+// console.log(hoursMap);
 
+// for (const [key, value] of question) {
+//   if (key === 'question') console.log(`${value}`);
+//   if (typeof key === 'number') console.log(`${key} : ${value}`);
+// }
+// // convert map to array
+// const newArrFromMap = [...question];
+// console.log(newArrFromMap);
 // // Maps
 // const rest = new Map(); // Set method
 // rest.set('name', 'Classico Italiano');
@@ -492,3 +549,50 @@ console.log(...question);
 //     },
 //   },
 // };
+
+const airline = 'TAP air Portugal';
+const plane = 'A320';
+
+console.log(plane[0]); // index off
+console.log(plane[1]);
+console.log(plane[2]);
+console.log('B737'[0]); // also works directly on strings
+
+console.log(airline.length);
+console.log('b737'.length);
+
+console.log(airline.indexOf('r')); // first index
+console.log(airline.lastIndexOf('r')); // last index
+console.log(airline.indexOf('Portugal')); // case sensitive
+
+console.log(airline.slice(4)); // begin param, will extract after param
+// methods will not mutate strings, so if you want to use it store it in a different variable
+console.log(airline.slice(4, 7)); // Also possible to add end param, (seccond number) which will end the slicing
+
+// extract first word
+
+console.log(airline.slice(0, airline.indexOf(' '))); // will slice till the first index (first space)
+console.log(airline.slice(airline.lastIndexOf(' ') + 1)); // will just slice starting from the space, +1 to exclude the space
+
+// negative params
+console.log(airline.slice(-2)); // will start slicing from the end
+console.log(airline.slice(1, -1)); // starts from param till negative param
+
+const checkMiddleSeat = function (seat) {
+  // B and E middle seats
+  seat.slice(-1) == 'B' || seat.slice(-1) == 'E'
+    ? console.log('This is a middleseat')
+    : console.log('this is not a middle seat');
+};
+checkMiddleSeat('11B');
+checkMiddleSeat('22C');
+checkMiddleSeat('33E');
+
+console.log(airline.toLowerCase());
+console.log(airline.toUpperCase());
+
+const passenger = 'jOnas';
+const passengerLower = passenger.toLowerCase();
+const passengerCorrect = passenger[0].toUpperCase() + passengerLower.slice(1);
+console.log(passengerCorrect);
+
