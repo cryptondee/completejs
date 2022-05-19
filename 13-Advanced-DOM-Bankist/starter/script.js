@@ -64,4 +64,3 @@ msg.innerHTML = `we use cookies for improved funcitonality and analytics. <butto
 header.prepend(msg); // since msg is a live collection
 header.append(msg);
 console.log(msg);
-// test
