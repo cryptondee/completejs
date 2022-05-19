@@ -61,7 +61,62 @@ const msg = document.createElement('div'); // creates a dom element and stores i
 msg.classList.add('cookie-message');
 msg.textContent = 'we use cookies for improved funcitonality and analytics';
 msg.innerHTML = `we use cookies for improved funcitonality and analytics. <button class="btn btn--close--cookie">Got it</button>`;
-header.prepend(msg); // since msg is a live collection
-header.append(msg);
+header.prepend(msg); // since msg is a live collection it gets prepended
+//header.append(msg); //  however, because it can't be at two places at once, it gets append at the end
 console.log(msg);
-// che ckout if this works
+//header.append(msg.cloneNode(true)); due to the cloneNode method it can be placed on multiple places
+//header.before(msg);// works similar to append
+//header.after(msg);
+
+// Delete elements
+document
+  .querySelector('.cookie-message')
+  .addEventListener('click', function () {
+    //msg.remove(); // is new
+    msg.parentElement.removeChild(msg); // how its used to go
+  });
+
+// Chapter 187 attributes and classes
+
+// styles
+msg.style.backgroundColor = '#37383d';
+msg.style.width = '120%';
+
+console.log(msg.style.height); // doesnt work because `style` only works for inline styles. if nothing is set with inline styles it won't be found
+console.log(msg.style.backgroundColor); // does work
+
+console.log(getComputedStyle(msg)); // will be able to get all the styles.
+console.log(getComputedStyle(msg).height); // will able to get what you want to find
+msg.style.height =
+  Number.parseFloat(getComputedStyle(msg).height, 10) + 30 + 'px';
+
+document.documentElement.style.setProperty('--color-primary', 'orangered'); // can change style of properties
+
+// Attributes
+const logo = document.querySelector('.nav__logo');
+console.log(logo.alt);
+console.log(logo.className); // nav__logo
+console.log(logo.src); // reading attributes works only on standard properties that is expected, custom attributes don't work // http://127.0.0.1:5500/13-Advanced-DOM-Bankist/starter/img/logo.png
+console.log(logo.getAttribute('src')); // to get the relative src // img/logo.png
+//non standard
+
+console.log(logo.designer); // doesn't work for example, to fetch it you would need to use
+console.log(logo.getAttribute('designer')); // getAttribute
+
+logo.setAttribute('company', 'Bankist'); // adds an attribute
+logo.setAttribute('data-version-number', '3');
+const link = document.querySelector('.twitter-link');
+
+console.log(link.href);
+console.log(link.getAttribute('href'));
+
+// Data attributes
+console.log(logo.dataset.versionNumber);
+
+// classes
+logo.classList.add('c');
+logo.classList.remove('c');
+logo.classList.toggle('c');
+logo.classList.contains('c'); // similar to includes
+//don't use, will overwrite all the classes + only add one element
+logo.className = 'jonas';
